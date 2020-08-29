@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <h1 style="text-align:center;">
+      2020-08</h1>
     <div class="calendar-container">
       <div class="calendar-week">
         <div class="cw-inner">
