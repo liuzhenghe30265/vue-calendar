@@ -66,8 +66,8 @@ export default {
     // 格式化日期
     dateFormat(date) {
       let dateArr = date.split('-')
-      let mounth = dateArr[1] > 10 ? dateArr[1] : '0' + dateArr[1]
-      let day = dateArr[2] > 10 ? dateArr[2] : '0' + dateArr[2]
+      let mounth = dateArr[1] >= 10 ? dateArr[1] : '0' + dateArr[1]
+      let day = dateArr[2] >= 10 ? dateArr[2] : '0' + dateArr[2]
       return dateArr[0] + '-' + mounth + '-' + day
     },
     // 日期信息
