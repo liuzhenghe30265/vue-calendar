@@ -65,21 +65,33 @@ export default {
     this.createCalendar(2020, 8)
   },
   methods: {
-    // 格式化日期
+    /**
+     * @name: 格式化日期
+     * @param {date}
+     */
     dateFormat(date) {
       let dateArr = date.split('-')
       let mounth = dateArr[1] >= 10 ? dateArr[1] : '0' + dateArr[1]
       let day = dateArr[2] >= 10 ? dateArr[2] : '0' + dateArr[2]
       return dateArr[0] + '-' + mounth + '-' + day
     },
-    // 日期信息
+
+    /**
+     * @name: 日期信息
+     * @param {date}
+     */
     getDayInfo(date) {
       let kqzl = kqzlData.data
       let formatDate = this.dateFormat(date)
       let txt = kqzl[kqzl.findIndex(item => item.time === formatDate)]
       return txt
     },
-    // 生成日历表
+
+    /**
+     * @name: 生成日历表
+     * @param {year}
+     * @param {mounth}
+     */
     createCalendar(year, mounth) {
       // 某个月一共有多少天
       let allDay = new Date(year, mounth, 0).getDate()
@@ -90,7 +102,7 @@ export default {
       let k = firstDay - 1
       let result = []
       let count = 1
-      // 生成日期二维数组
+      // 生成日历二维数组
       for (let i = 0; i < row; i++) {
         result[i] = new Array(7)
         do {
@@ -110,7 +122,12 @@ export default {
       }
       this.day = result
     },
-    // 判断某年某月1号是星期几
+
+    /**
+     * @name: 判断某年某月1号是星期几
+     * @param {year}
+     * @param {mounth}
+     */
     judjeFirstDay(year, mounth) {
       let date = new Date(year, mounth - 1, 1)
       let week = date.getDay()

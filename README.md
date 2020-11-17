@@ -1,6 +1,4 @@
-# vue-calendar
-
-> Vue.js 实现日历效果
+# Vue.js 实现日历效果
 
 ## Build Setup
 
