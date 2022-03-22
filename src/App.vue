@@ -1,33 +1,45 @@
 <template>
-  <div id="app">
-    <h1 style="text-align:center;">
-      2020-08</h1>
-    <div class="calendar-container">
-      <div class="calendar-week">
-        <div class="cw-inner">
-          <div class="cw-item"
-               :style="{width: setItemWidth}"
-               v-for="(item, index) of week"
-               :key="index">
+  <div
+    id="app">
+    <h1
+      style="text-align:center;">
+      2020-08
+    </h1>
+    <div
+      class="calendar-container">
+      <div
+        class="calendar-week">
+        <div
+          class="cw-inner">
+          <div
+            class="cw-item"
+            :style="{width: setItemWidth}"
+            v-for="(item, index) of week"
+            :key="index">
             {{item}}
           </div>
         </div>
       </div>
-      <div class="calendar-day">
-        <div class="cd-list"
-             v-for="(item, index) of day"
-             :key="index">
-          <div class="cl-item"
-               :style="{width: setItemWidth}"
-               v-for="(child,index) of item"
-               :key="index"
-               :class="[{has: child}]">
-            <div class="ci-inner"
-                 v-if="child">
+      <div
+        class="calendar-day">
+        <div
+          class="cd-list"
+          v-for="(item, index) of day"
+          :key="index">
+          <div
+            class="cl-item"
+            :style="{width: setItemWidth}"
+            v-for="(child,index) of item"
+            :key="index"
+            :class="[{has: child}]">
+            <div
+              class="ci-inner"
+              v-if="child">
               <span>{{child.date}}</span>
-              <span v-if="child.text"
-                    class="aqi"
-                    :class="child.text.kqzl">
+              <span
+                v-if="child.text"
+                class="aqi"
+                :class="child.text.kqzl">
                 {{child.text.kqzl}}
               </span>
             </div>
@@ -42,26 +54,26 @@
 import kqzlData from './assets/data.json' // 空气质量数据
 export default {
   name: 'app',
-  data() {
+  data () {
     return {
       week: [
+        '星期日',
         '星期一',
         '星期二',
         '星期三',
         '星期四',
         '星期五',
         '星期六',
-        '星期日',
       ],
       day: [],
     }
   },
   computed: {
-    setItemWidth() {
+    setItemWidth () {
       return 100 / 7 + '%'
     },
   },
-  mounted() {
+  mounted () {
     this.createCalendar(2020, 8)
   },
   methods: {
@@ -69,18 +81,18 @@ export default {
      * @name: 格式化日期
      * @param {date}
      */
-    dateFormat(date) {
+    dateFormat (date) {
       let dateArr = date.split('-')
-      let mounth = dateArr[1] >= 10 ? dateArr[1] : '0' + dateArr[1]
+      let month = dateArr[1] >= 10 ? dateArr[1] : '0' + dateArr[1]
       let day = dateArr[2] >= 10 ? dateArr[2] : '0' + dateArr[2]
-      return dateArr[0] + '-' + mounth + '-' + day
+      return dateArr[0] + '-' + month + '-' + day
     },
 
     /**
      * @name: 日期信息
      * @param {date}
      */
-    getDayInfo(date) {
+    getDayInfo (date) {
       let kqzl = kqzlData.data
       let formatDate = this.dateFormat(date)
       let txt = kqzl[kqzl.findIndex(item => item.time === formatDate)]
@@ -90,16 +102,16 @@ export default {
     /**
      * @name: 生成日历表
      * @param {year}
-     * @param {mounth}
+     * @param {month}
      */
-    createCalendar(year, mounth) {
+    createCalendar (year, month) {
       // 某个月一共有多少天
-      let allDay = new Date(year, mounth, 0).getDate()
+      let allDay = new Date(year, month, 0).getDate()
       // 某个月1号是星期几
-      let firstDay = this.judjeFirstDay(year, mounth)
+      let firstDay = this.judjeFirstDay(year, month)
       // 需要多少行来展示
       let row = Math.ceil((allDay + firstDay) / 7)
-      let k = firstDay - 1
+      let k = firstDay
       let result = []
       let count = 1
       // 生成日历二维数组
@@ -110,7 +122,7 @@ export default {
             result[i][k] = {
               date: count,
               // 根据接口匹配日期对应的信息
-              text: this.getDayInfo(year + '-' + mounth + '-' + count),
+              text: this.getDayInfo(year + '-' + month + '-' + count),
             }
             k++
             count++
@@ -126,13 +138,12 @@ export default {
     /**
      * @name: 判断某年某月1号是星期几
      * @param {year}
-     * @param {mounth}
+     * @param {month}
      */
-    judjeFirstDay(year, mounth) {
-      let date = new Date(year, mounth - 1, 1)
-      let week = date.getDay()
-      let weekArr = [1, 2, 3, 4, 5, 6, 7]
-      return weekArr[week - 1]
+    judjeFirstDay (year, month) {
+      const date = new Date(year, month - 1, 1)
+      const week = date.getDay()
+      return week
     },
   },
 }
